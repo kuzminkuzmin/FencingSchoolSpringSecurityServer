@@ -1,0 +1,179 @@
+### POST admin correct
+POST http://localhost:8080/admin
+content-type: application/json
+
+{
+  "login": "qwe",
+  "surname": "qwe",
+  "name": "qwe",
+  "patronymic": "qwe",
+  "password": "qwe",
+  "email": "qwe@qwe.qwe",
+  "salary": 30000
+}
+
+### POST admin incorrect unique login
+POST http://localhost:8080/admin
+content-type: application/json
+
+{
+  "login": "qwe",
+  "surname": "---",
+  "name": "---",
+  "patronymic": "---",
+  "password": "---",
+  "email": "z@z.zz",
+  "salary": 0
+}
+
+### POST admin incorrect unique email
+POST http://localhost:8080/admin
+content-type: application/json
+
+{
+  "login": "---",
+  "surname": "---",
+  "name": "---",
+  "patronymic": "---",
+  "password": "---",
+  "email": "qwe@qwe.qwe",
+  "salary": 0
+}
+
+### POST admin incorrect - No login/surname/name/password/email
+POST http://localhost:8080/admin
+content-type: application/json
+
+{
+  "salary": 60000
+}
+
+### POST admin incorrect - Empty login/surname/name/password/email
+POST http://localhost:8080/admin
+content-type: application/json
+
+{
+  "login": "",
+  "surname": "",
+  "name": "",
+  "patronymic": "",
+  "password": "",
+  "email": "",
+  "salary": 60000
+}
+
+### POST admin incorrect - Blank login/surname/name/password/email
+POST http://localhost:8080/admin
+content-type: application/json
+
+{
+  "login": "  ",
+  "surname": "  ",
+  "name": "  ",
+  "patronymic": "  ",
+  "password": "  ",
+  "email": "  ",
+  "salary": 60000
+}
+
+### POST admin incorrect - Wrong format email
+POST http://localhost:8080/admin
+content-type: application/json
+
+{
+  "login": "zxc",
+  "surname": "zxc",
+  "name": "zxc",
+  "patronymic": "zxc",
+  "password": "zxc",
+  "email": "zxczxczxc.zx",
+  "salary": 60000
+}
+
+### POST admin incorrect - Negative salary
+POST http://localhost:8080/admin
+content-type: application/json
+
+{
+  "login": "zxc",
+  "surname": "zxc",
+  "name": "zxc",
+  "patronymic": "zxc",
+  "password": "zxc",
+  "email": "zxc@zxczxc.zx",
+  "salary": -60000
+}
+
+### GET admin all
+GET http://localhost:8080/admin
+
+### GET admin by id correct
+GET http://localhost:8080/admin/1
+
+### GET admin by id incorrect
+GET http://localhost:8080/admin/999999
+
+### POST admin to test put/delete
+POST http://localhost:8080/admin
+content-type: application/json
+
+{
+  "login": "asd",
+  "surname": "asd",
+  "name": "asd",
+  "patronymic": "asd",
+  "password": "asd",
+  "email": "asd@asd.sd",
+  "salary": 10000
+}
+
+### PUT admin correct
+PUT http://localhost:8080/admin
+content-type: application/json
+
+{
+  "id": 4,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "asd",
+  "email": "updated@updated.qwe",
+  "salary": 111111
+}
+
+### PUT admin incorrect - unique email
+PUT http://localhost:8080/admin
+content-type: application/json
+
+{
+  "id": 4,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "asd",
+  "email": "qwe@qwe.qwe",
+  "salary": 111111
+}
+
+### PUT admin incorrect - Blank login/surname/name/password/email, negative salary
+PUT http://localhost:8080/admin
+content-type: application/json
+
+{
+  "id": 4,
+  "login": "   ",
+  "surname": "   ",
+  "name": "   ",
+  "patronymic": "   ",
+  "password": "   ",
+  "email": "qweqwe.qwe",
+  "salary": -111111
+}
+
+### DELETE admin incorrect
+DELETE http://localhost:8080/admin/9999
+
+### DELETE admin correct
+DELETE http://localhost:8080/admin/4

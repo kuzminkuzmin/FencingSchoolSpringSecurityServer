@@ -1,0 +1,153 @@
+### POST apprentice correct
+POST http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "login": "zxc",
+  "surname": "zxc",
+  "name": "zxc",
+  "patronymic": "zxc",
+  "password": "zxc",
+  "phoneNumber": "89333223322"
+}
+
+### POST apprentice incorrect - unique login
+POST http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "login": "zxc",
+  "surname": "---",
+  "name": "---",
+  "patronymic": "---",
+  "password": "---",
+  "phoneNumber": "88888888888"
+}
+
+### POST apprentice incorrect - unique phone
+POST http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "login": "---",
+  "surname": "---",
+  "name": "---",
+  "patronymic": "---",
+  "password": "---",
+  "phoneNumber": "89333223322"
+}
+
+### POST apprentice incorrect - No login/surname/name/password/phone
+POST http://localhost:8080/apprentice
+content-type: application/json
+
+{}
+
+### POST apprentice incorrect - Empty login/surname/name/password/phone
+POST http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "login": "",
+  "surname": "",
+  "name": "",
+  "patronymic": "",
+  "password": "",
+  "phoneNumber": ""
+}
+
+### POST apprentice incorrect - Blank login/surname/name/password/phone
+POST http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "login": "   ",
+  "surname": "   ",
+  "name": "   ",
+  "patronymic": "   ",
+  "password": "   ",
+  "phoneNumber": "   "
+}
+
+### POST apprentice incorrect - Wrong phone format
+POST http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "login": "bnm",
+  "surname": "bnm",
+  "name": "bnm",
+  "patronymic": "bnm",
+  "password": "bnm",
+  "phoneNumber": "455"
+}
+
+### GET apprentices all
+GET http://localhost:8080/apprentice
+
+### GET apprentice by id correct
+GET http://localhost:8080/apprentice/9
+
+### GET apprentice by id incorrect
+GET http://localhost:8080/apprentice/999999
+
+### POST apprentice to test put/delete
+POST http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "login": "ujm",
+  "surname": "ujm",
+  "name": "ujm",
+  "patronymic": "ujm",
+  "password": "ujm",
+  "phoneNumber": "89995556622"
+}
+
+### PUT apprentice correct
+PUT http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "id": 13,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "phoneNumber": "85551113311"
+}
+
+### PUT apprentice incorrect - unique phone
+PUT http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "id": 13,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "phoneNumber": "89333223322"
+}
+
+### PUT apprentice incorrect -  Blank login/surname/name/password/phone
+PUT http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "id": 13,
+  "login": "   ",
+  "surname": "   ",
+  "name": "   ",
+  "patronymic": "   ",
+  "password": "   ",
+  "phoneNumber": "   "
+}
+
+### DELETE apprentice incorrect
+DELETE http://localhost:8080/apprentice/99999
+
+### DELETE apprentice correct
+DELETE http://localhost:8080/apprentice/13

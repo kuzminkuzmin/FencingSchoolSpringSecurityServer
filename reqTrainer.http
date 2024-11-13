@@ -1,0 +1,179 @@
+### POST trainer correct
+POST http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "login": "asd",
+  "surname": "asd",
+  "name": "asd",
+  "patronymic": "asd",
+  "password": "asd",
+  "email": "trainer@fencer3000.tr",
+  "experience": 5
+}
+
+### POST trainer incorrect unique login
+POST http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "login": "asd",
+  "surname": "---",
+  "name": "---",
+  "patronymic": "---",
+  "password": "---",
+  "email": "trainer@fencer3000.tr",
+  "experience": 5
+}
+
+### POST trainer incorrect unique email
+POST http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "login": "---",
+  "surname": "---",
+  "name": "---",
+  "patronymic": "---",
+  "password": "---",
+  "email": "trainer@fencer3000.tr",
+  "experience": 5
+}
+
+### POST trainer incorrect - No login/surname/name/password/email
+POST http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "experience": 0
+}
+
+### POST trainer incorrect - Empty login/surname/name/password/email
+POST http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "login": "",
+  "surname": "",
+  "name": "",
+  "patronymic": "",
+  "password": "",
+  "email": "",
+  "experience": 0
+}
+
+### POST trainer incorrect - Blank login/surname/name/password/email
+POST http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "login": "   ",
+  "surname": "   ",
+  "name": "   ",
+  "patronymic": "   ",
+  "password": "   ",
+  "email": "   ",
+  "experience": 0
+}
+
+### POST trainer incorrect - Wrong format email
+POST http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "login": "uio",
+  "surname": "uio",
+  "name": "uio",
+  "patronymic": "uio",
+  "password": "uio",
+  "email": "uio",
+  "experience": 5
+}
+
+### POST trainer incorrect - Negative experience
+POST http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "login": "uio",
+  "surname": "uio",
+  "name": "uio",
+  "patronymic": "uio",
+  "password": "uio",
+  "email": "uio@uio.io",
+  "experience": -5
+}
+
+### GET trainer all
+GET http://localhost:8080/trainer
+
+### GET trainer by id correct
+GET http://localhost:8080/trainer/5
+
+### GET trainer by id incorrect
+GET http://localhost:8080/trainer/99999
+
+### POST trainer to test put/delete
+POST http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "login": "rty",
+  "surname": "rty",
+  "name": "rty",
+  "patronymic": "rty",
+  "password": "rty",
+  "email": "rty@fencer3000.tr",
+  "experience": 5
+}
+
+### PUT trainer correct
+PUT http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "id": 8,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "email": "updated@updated.tr",
+  "experience": 5
+}
+
+### PUT trainer incorrect - unique email
+PUT http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "id": 8,
+  "login": "asd",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "email": "trainer@fencer3000.tr",
+  "experience": 5
+}
+
+### PUT trainer incorrect - Blank login/surname/name/password/email, negative experience
+PUT http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "id": 8,
+  "login": "   ",
+  "surname": "   ",
+  "name": "   ",
+  "patronymic": "   ",
+  "password": "   ",
+  "email": "trainerfencer3000tr",
+  "experience": -5
+}
+
+### DELETE trainer incorrect
+DELETE http://localhost:8080/trainer/99999
+
+### DELETE trainer correct
+DELETE http://localhost:8080/trainer/8
