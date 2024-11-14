@@ -2,10 +2,14 @@ package com.dmitriikuzmin.controller;
 
 import com.dmitriikuzmin.dto.ResponseResult;
 import com.dmitriikuzmin.model.Apprentice;
+import com.dmitriikuzmin.model.User;
+import com.dmitriikuzmin.model.UserDetailsImpl;
 import com.dmitriikuzmin.service.ApprenticeService;
+import com.dmitriikuzmin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +21,16 @@ import java.util.StringJoiner;
 @RequestMapping("/apprentice")
 public class ApprenticeController {
     private ApprenticeService apprenticeService;
+    private UserService userService;
 
     @Autowired
     public void setApprenticeService(ApprenticeService apprenticeService) {
         this.apprenticeService = apprenticeService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping
@@ -47,11 +57,20 @@ public class ApprenticeController {
     }
 
     @PutMapping
-    public ResponseEntity<ResponseResult<Apprentice>> update(@Valid @RequestBody Apprentice apprentice) {
-        try {
-            return new ResponseEntity<>(new ResponseResult<>(null, this.apprenticeService.update(apprentice)), HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(new ResponseResult<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ResponseResult<Apprentice>> update(@Valid @RequestBody Apprentice apprentice, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
+            if (user.getClass() == Apprentice.class && apprentice.getId() != user.getId()) {
+                return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.BAD_REQUEST);
+            } else {
+                try {
+                    return new ResponseEntity<>(new ResponseResult<>(null, this.apprenticeService.update(apprentice)), HttpStatus.OK);
+                } catch (IllegalArgumentException e) {
+                    return new ResponseEntity<>(new ResponseResult<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
+                }
+            }
+        } else {
+            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.BAD_REQUEST);
         }
     }
 

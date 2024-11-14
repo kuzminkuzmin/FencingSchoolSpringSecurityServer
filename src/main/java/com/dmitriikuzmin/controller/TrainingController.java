@@ -1,12 +1,14 @@
 package com.dmitriikuzmin.controller;
 
 import com.dmitriikuzmin.dto.ResponseResult;
-import com.dmitriikuzmin.model.Training;
+import com.dmitriikuzmin.model.*;
 import com.dmitriikuzmin.service.TrainingService;
+import com.dmitriikuzmin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -16,7 +18,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/training")
 public class TrainingController {
+    private UserService userService;
     private TrainingService trainingService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     public void setTrainingService(TrainingService trainingService) {
@@ -28,7 +36,15 @@ public class TrainingController {
                                                         @RequestParam long trainerId,
                                                         @RequestParam int numberGym,
                                                         @RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate date,
-                                                        @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime timeStart) {
+                                                        @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime timeStart,
+                                                        Authentication authentication) {
+
+        User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
+        if (user.getClass() == Apprentice.class && apprenticeId != user.getId()
+                || user.getClass() == Trainer.class && trainerId != user.getId()) {
+            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.FORBIDDEN);
+        }
+
         try {
             Training training = this.trainingService.add(apprenticeId, trainerId, numberGym, date, timeStart);
             return new ResponseEntity<>(new ResponseResult<>(null, training), HttpStatus.OK);

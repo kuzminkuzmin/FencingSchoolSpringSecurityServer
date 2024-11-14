@@ -3,12 +3,12 @@ POST http://localhost:8080/apprentice
 content-type: application/json
 
 {
-  "login": "zxc",
+  "login": "zxc1",
   "surname": "zxc",
   "name": "zxc",
   "patronymic": "zxc",
   "password": "zxc",
-  "phoneNumber": "89333223322"
+  "phoneNumber": "89333223321"
 }
 
 ### POST apprentice incorrect - unique login
@@ -106,10 +106,26 @@ content-type: application/json
 
 ### PUT apprentice correct
 PUT http://localhost:8080/apprentice
+Authorization: Basic qwe qwe
 content-type: application/json
 
 {
-  "id": 13,
+  "id": 15,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "phoneNumber": "85551113311"
+}
+
+### PUT apprentice correct
+PUT http://localhost:8080/apprentice
+Authorization: Basic zxc zxc
+content-type: application/json
+
+{
+  "id": 15,
   "login": "updated",
   "surname": "updated",
   "name": "updated",
@@ -123,7 +139,7 @@ PUT http://localhost:8080/apprentice
 content-type: application/json
 
 {
-  "id": 13,
+  "id": 12,
   "login": "updated",
   "surname": "updated",
   "name": "updated",
@@ -137,7 +153,7 @@ PUT http://localhost:8080/apprentice
 content-type: application/json
 
 {
-  "id": 13,
+  "id": 12,
   "login": "   ",
   "surname": "   ",
   "name": "   ",
@@ -150,4 +166,4 @@ content-type: application/json
 DELETE http://localhost:8080/apprentice/99999
 
 ### DELETE apprentice correct
-DELETE http://localhost:8080/apprentice/13
+DELETE http://localhost:8080/apprentice/12
