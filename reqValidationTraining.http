@@ -1,0 +1,8 @@
+### NO AUTH - POST -
+POST http://localhost:8080/training?apprenticeId=2&trainerId=3&numberGym=1&date=25.11.2024&timeStart=10:00
+Authorization: Basic admin admin
+
+### NO AUTH - GET
+GET http://localhost:8080/
+
+### NO AUTH - DELETE

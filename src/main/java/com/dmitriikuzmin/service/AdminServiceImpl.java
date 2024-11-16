@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -30,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
             admin.setPassword(passwordEncoder.encode(admin.getPassword()));
             return adminRepository.save(admin);
         } catch (DataIntegrityViolationException e) {
-            throw new IllegalArgumentException("Логин или пароль уже используются");
+            throw new IllegalArgumentException("Неправильный логин или пароль");
         }
     }
 

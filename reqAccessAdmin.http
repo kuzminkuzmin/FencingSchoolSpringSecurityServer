@@ -1,0 +1,187 @@
+### POST Admin - Admin correct
+POST http://localhost:8080/admin
+Authorization: Basic admin admin
+content-type:application/json
+
+{
+  "login": "qwe",
+  "surname": "qwe",
+  "name": "qwe",
+  "patronymic": "qwe",
+  "password": "qwe",
+  "email": "qwe@qwe.qw",
+  "salary": 30000
+}
+
+### NO AUTH - POST - 401
+POST http://localhost:8080/admin
+content-type:application/json
+
+{
+  "login": "qwe2",
+  "surname": "qwe2",
+  "name": "qwe",
+  "patronymic": "qwe",
+  "password": "qwe",
+  "email": "qwe1@qwe.qwe",
+  "salary": 30000
+}
+
+### NO AUTH - GET ALL - 401
+GET http://localhost:8080/admin
+
+### NO AUTH - GET by id - 401
+GET http://localhost:8080/admin/1
+
+### NO AUTH - PUT - 401
+PUT http://localhost:8080/admin
+content-type: application/json
+
+{
+  "id": 5,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "asd",
+  "email": "updated@updated.qwe",
+  "salary": 111111
+}
+
+### NO AUTH - DELETE - 401
+DELETE http://localhost:8080/admin/5
+
+
+
+### APPRENTICE - POST Admin - 403
+POST http://localhost:8080/admin
+Authorization: Basic apprentice apprentice
+content-type:application/json
+
+{
+  "login": "qwe2",
+  "surname": "qwe2",
+  "name": "qwe",
+  "patronymic": "qwe",
+  "password": "qwe",
+  "email": "qwe1@qwe.qwe",
+  "salary": 30000
+}
+
+### APPRENTICE - GET ALL - 403
+GET http://localhost:8080/admin
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE - GET by id - 403
+GET http://localhost:8080/admin/1
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE - PUT - 403
+PUT http://localhost:8080/admin
+Authorization: Basic apprentice apprentice
+content-type: application/json
+
+{
+  "id": 5,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "asd",
+  "email": "updated@updated.qwe",
+  "salary": 111111
+}
+
+### APPRENTICE - DELETE - 403
+DELETE http://localhost:8080/admin/5
+Authorization: Basic apprentice apprentice
+
+
+
+### TRAINER - POST Admin - 403
+POST http://localhost:8080/admin
+Authorization: Basic trainer trainer
+content-type:application/json
+
+{
+  "login": "qwe2",
+  "surname": "qwe2",
+  "name": "qwe",
+  "patronymic": "qwe",
+  "password": "qwe",
+  "email": "qwe1@qwe.qwe",
+  "salary": 30000
+}
+
+### TRAINER - GET ALL - 403
+GET http://localhost:8080/admin
+Authorization: Basic trainer trainer
+
+### TRAINER - GET by id - 403
+GET http://localhost:8080/admin/1
+Authorization: Basic trainer trainer
+
+### TRAINER - PUT - 403
+PUT http://localhost:8080/admin
+Authorization: Basic trainer trainer
+content-type: application/json
+
+{
+  "id": 5,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "asd",
+  "email": "updated@updated.qwe",
+  "salary": 111111
+}
+
+### TRAINER - DELETE - 403
+DELETE http://localhost:8080/admin/5
+Authorization: Basic trainer trainer
+
+
+
+### ADMIN - POST Admin - correct
+POST http://localhost:8080/admin
+Authorization: Basic admin admin
+content-type:application/json
+
+{
+  "login": "qwe2",
+  "surname": "qwe2",
+  "name": "qwe",
+  "patronymic": "qwe",
+  "password": "qwe",
+  "email": "qwe1@qwe.qwe",
+  "salary": 30000
+}
+
+### ADMIN - GET ALL - correct
+GET http://localhost:8080/admin
+Authorization: Basic admin admin
+
+### ADMIN - GET by id - correct
+GET http://localhost:8080/admin/1
+Authorization: Basic admin admin
+
+### ADMIN - PUT - correct
+PUT http://localhost:8080/admin
+Authorization: Basic admin admin
+content-type: application/json
+
+{
+  "id": 5,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "asd",
+  "email": "updated@updated.qwe",
+  "salary": 111111
+}
+
+### ADMIN - DELETE - correct
+DELETE http://localhost:8080/admin/5
+Authorization: Basic admin admin

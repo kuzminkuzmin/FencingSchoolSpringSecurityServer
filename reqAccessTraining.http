@@ -1,0 +1,104 @@
+### NO AUTH - POST - 401
+POST http://localhost:8080/training?apprenticeId=2&trainerId=3&numberGym=1&date=25.11.2024&timeStart=10:00
+
+### NO AUTH - GET BY TRAINER - 401
+GET http://localhost:8080/training/trainer/3
+
+### NO AUTH - GET BY APPRENTICE - 401
+GET http://localhost:8080/training/apprentice/2
+
+### NO AUTH - GET - 401
+GET http://localhost:8080/training/1
+
+### NO AUTH - DELETE - 401
+DELETE http://localhost:8080/training/1
+
+
+
+### ADMIN - POST - correct
+POST http://localhost:8080/training?apprenticeId=14&trainerId=15&numberGym=1&date=25.11.2024&timeStart=10:00
+Authorization: Basic admin admin
+
+### ADMIN - GET BY TRAINER - correct
+GET http://localhost:8080/training/trainer?trainerId=3
+Authorization: Basic admin admin
+
+### ADMIN - GET BY APPRENTICE - correct
+GET http://localhost:8080/training/apprentice?apprenticeId=2
+Authorization: Basic admin admin
+
+### ADMIN - GET - correct
+GET http://localhost:8080/training/1
+Authorization: Basic admin admin
+
+### ADMIN - DELETE - correct
+DELETE http://localhost:8080/training/5
+Authorization: Basic admin admin
+
+
+
+### APPRENTICE OTHER - POST - 403
+POST http://localhost:8080/training?apprenticeId=14&trainerId=15&numberGym=1&date=25.11.2024&timeStart=10:00
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE HIMSELF - POST - correct
+POST http://localhost:8080/training?apprenticeId=14&trainerId=15&numberGym=1&date=25.11.2024&timeStart=10:00
+Authorization: Basic ujm ujm
+
+### APPRENTICE - GET BY TRAINER - 403
+GET http://localhost:8080/training/trainer?trainerId=3
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE OTHER - GET BY APPRENTICE - 403
+GET http://localhost:8080/training/apprentice?apprenticeId=2
+Authorization: Basic ujm ujm
+
+### APPRENTICE HIMSELF - GET BY APPRENTICE - correct
+GET http://localhost:8080/training/apprentice?apprenticeId=2
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE OTHER - GET BY ID - 403
+GET http://localhost:8080/training/6
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE HIMSELF - GET BY ID - correct
+GET http://localhost:8080/training/1
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE OTHER - DELETE - 403
+DELETE http://localhost:8080/training/6
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE HIMSELF - DELETE - correct
+DELETE http://localhost:8080/training/6
+Authorization: Basic ujm ujm
+
+
+
+### TRAINER OTHER - POST - 403
+POST http://localhost:8080/training?apprenticeId=2&trainerId=15&numberGym=1&date=25.11.2024&timeStart=10:00
+Authorization: Basic trainer trainer
+
+### TRAINER HIMSELF - POST - correct
+POST http://localhost:8080/training?apprenticeId=2&trainerId=3&numberGym=1&date=25.11.2024&timeStart=10:00
+Authorization: Basic trainer trainer
+
+### TRAINER - GET BY APPRENTICE - correct
+GET http://localhost:8080/training/apprentice?apprenticeId=2
+Authorization: Basic trainer trainer
+
+### TRAINER - GET BY TRAINER - correct
+GET http://localhost:8080/training/trainer?trainerId=3
+Authorization: Basic trainer trainer
+
+### TRAINER - GET BY ID - correct
+GET http://localhost:8080/training/9
+Authorization: Basic trainer trainer
+
+### TRAINER OTHER - DELETE - 403
+DELETE http://localhost:8080/training/1
+Authorization: Basic rty rty
+
+### TRAINER HIMSELF - DELETE - correct
+DELETE http://localhost:8080/training/1
+Authorization: Basic trainer trainer

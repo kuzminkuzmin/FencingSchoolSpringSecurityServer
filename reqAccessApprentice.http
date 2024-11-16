@@ -1,0 +1,155 @@
+### NO AUTH - POST - correct
+POST http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "login": "zxc",
+  "surname": "zxc",
+  "name": "zxc",
+  "patronymic": "zxc",
+  "password": "zxc",
+  "phoneNumber": "89333223321"
+}
+
+### NO AUTH - GET ALL - 401
+GET http://localhost:8080/apprentice
+
+### NO AUTH - GET - 401
+GET http://localhost:8080/apprentice/6
+
+### NO AUTH - PUT - 401
+PUT http://localhost:8080/apprentice
+content-type: application/json
+
+{
+  "id": 6,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "phoneNumber": "85551113311"
+}
+
+### NO AUTH - DELETE - 401
+DELETE http://localhost:8080/apprentice/12
+
+
+
+### ADMIN - POST - correct
+POST http://localhost:8080/apprentice
+Authorization: Basic admin admin
+content-type: application/json
+
+{
+  "login": "zxc1",
+  "surname": "zxc",
+  "name": "zxc",
+  "patronymic": "zxc",
+  "password": "zxc1",
+  "phoneNumber": "89333223324"
+}
+
+### ADMIN - GET ALL - correct
+GET http://localhost:8080/apprentice
+Authorization: Basic admin admin
+
+### ADMIN - GET - correct
+GET http://localhost:8080/apprentice/6
+Authorization: Basic admin admin
+
+### ADMIN - PUT - correct
+PUT http://localhost:8080/apprentice
+Authorization: Basic admin admin
+content-type: application/json
+
+{
+  "id": 6,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "phoneNumber": "85551113311"
+}
+
+### ADMIN - DELETE - correct
+DELETE http://localhost:8080/apprentice/10
+Authorization: Basic admin admin
+
+
+
+### APPRENTICE - GET ALL - 403
+GET http://localhost:8080/apprentice
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE - GET - 403
+GET http://localhost:8080/apprentice/6
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE OTHER - PUT - 403
+PUT http://localhost:8080/apprentice
+Authorization: Basic apprentice apprentice
+content-type: application/json
+
+{
+  "id": 6,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "phoneNumber": "85551113311"
+}
+
+### APPRENTICE HIMSELF - PUT - correct
+PUT http://localhost:8080/apprentice
+Authorization: Basic zxc zxc
+content-type: application/json
+
+{
+  "id": 6,
+  "login": "zxc",
+  "surname": "updated2",
+  "name": "updated2",
+  "patronymic": "updated2",
+  "password": "zxc",
+  "phoneNumber": "85551113311"
+}
+
+### APPRENTICE OTHER - DELETE - 403
+DELETE http://localhost:8080/apprentice/6
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE HIMSELF - DELETE - correct
+DELETE http://localhost:8080/apprentice/9
+Authorization: Basic zxc zxc
+
+
+
+### TRAINER - GET ALL - correct
+GET http://localhost:8080/apprentice
+Authorization: Basic trainer trainer
+
+### TRAINER - GET - correct
+GET http://localhost:8080/apprentice/8
+Authorization: Basic trainer trainer
+
+### TRAINER - PUT - 403
+PUT http://localhost:8080/apprentice
+Authorization: Basic trainer trainer
+content-type: application/json
+
+{
+  "id": 8,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "phoneNumber": "85551113311"
+}
+
+### TRAINER - DELETE - 403
+DELETE http://localhost:8080/apprentice/9
+Authorization: Basic trainer trainer

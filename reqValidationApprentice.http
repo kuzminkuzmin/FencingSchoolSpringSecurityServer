@@ -3,12 +3,12 @@ POST http://localhost:8080/apprentice
 content-type: application/json
 
 {
-  "login": "zxc1",
+  "login": "apprentice",
   "surname": "zxc",
   "name": "zxc",
   "patronymic": "zxc",
-  "password": "zxc",
-  "phoneNumber": "89333223321"
+  "password": "apprentice",
+  "phoneNumber": "89333223322"
 }
 
 ### POST apprentice incorrect - unique login
@@ -16,7 +16,7 @@ POST http://localhost:8080/apprentice
 content-type: application/json
 
 {
-  "login": "zxc",
+  "login": "apprentice",
   "surname": "---",
   "name": "---",
   "patronymic": "---",
@@ -106,11 +106,11 @@ content-type: application/json
 
 ### PUT apprentice correct
 PUT http://localhost:8080/apprentice
-Authorization: Basic qwe qwe
+Authorization: Basic admin admin
 content-type: application/json
 
 {
-  "id": 15,
+  "id": 10,
   "login": "updated",
   "surname": "updated",
   "name": "updated",

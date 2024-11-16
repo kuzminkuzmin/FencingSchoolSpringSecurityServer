@@ -1,13 +1,14 @@
 ### POST trainer correct
 POST http://localhost:8080/trainer
+Authorization: Basic admin admin
 content-type: application/json
 
 {
-  "login": "asd",
+  "login": "trainer",
   "surname": "asd",
   "name": "asd",
   "patronymic": "asd",
-  "password": "asd",
+  "password": "trainer",
   "email": "trainer@fencer3000.tr",
   "experience": 5
 }

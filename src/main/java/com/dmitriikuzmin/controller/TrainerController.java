@@ -1,11 +1,16 @@
 package com.dmitriikuzmin.controller;
 
 import com.dmitriikuzmin.dto.ResponseResult;
+import com.dmitriikuzmin.model.Apprentice;
 import com.dmitriikuzmin.model.Trainer;
+import com.dmitriikuzmin.model.User;
+import com.dmitriikuzmin.model.UserDetailsImpl;
 import com.dmitriikuzmin.service.TrainerService;
+import com.dmitriikuzmin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +21,13 @@ import java.util.StringJoiner;
 @RestController
 @RequestMapping("/trainer")
 public class TrainerController {
+    private UserService userService;
     private TrainerService trainerService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     public void setTrainerService(TrainerService trainerService) {
@@ -38,7 +49,11 @@ public class TrainerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseResult<Trainer>> getById(@PathVariable long id) {
+    public ResponseEntity<ResponseResult<Trainer>> getById(@PathVariable long id, Authentication authentication) {
+        User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
+        if (user.getClass() == Trainer.class && id != user.getId()) {
+            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.FORBIDDEN);
+        }
         try {
             return new ResponseEntity<>(new ResponseResult<>(null, this.trainerService.get(id)), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
@@ -47,7 +62,11 @@ public class TrainerController {
     }
 
     @PutMapping
-    public ResponseEntity<ResponseResult<Trainer>> update(@Valid @RequestBody Trainer trainer) {
+    public ResponseEntity<ResponseResult<Trainer>> update(@Valid @RequestBody Trainer trainer, Authentication authentication) {
+        User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
+        if (user.getClass() == Trainer.class && trainer.getId() != user.getId()) {
+            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.FORBIDDEN);
+        }
         try {
             return new ResponseEntity<>(new ResponseResult<>(null, this.trainerService.update(trainer)), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
@@ -56,7 +75,11 @@ public class TrainerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseResult<Trainer>> delete(@PathVariable long id) {
+    public ResponseEntity<ResponseResult<Trainer>> delete(@PathVariable long id, Authentication authentication) {
+        User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
+        if (user.getClass() == Trainer.class && id != user.getId()) {
+            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.FORBIDDEN);
+        }
         try {
             return new ResponseEntity<>(new ResponseResult<>(null, this.trainerService.delete(id)), HttpStatus.OK);
         } catch (IllegalArgumentException e) {

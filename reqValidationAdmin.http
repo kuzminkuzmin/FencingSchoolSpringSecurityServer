@@ -3,21 +3,22 @@ POST http://localhost:8080/admin
 content-type: application/json
 
 {
-  "login": "qwe",
+  "login": "admin",
   "surname": "qwe",
   "name": "qwe",
   "patronymic": "qwe",
-  "password": "qwe",
+  "password": "admin",
   "email": "qwe@qwe.qwe",
   "salary": 30000
 }
 
 ### POST admin incorrect unique login
 POST http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
-  "login": "qwe",
+  "login": "admin",
   "surname": "---",
   "name": "---",
   "patronymic": "---",
@@ -28,6 +29,7 @@ content-type: application/json
 
 ### POST admin incorrect unique email
 POST http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
@@ -42,6 +44,7 @@ content-type: application/json
 
 ### POST admin incorrect - No login/surname/name/password/email
 POST http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
@@ -50,6 +53,7 @@ content-type: application/json
 
 ### POST admin incorrect - Empty login/surname/name/password/email
 POST http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
@@ -64,6 +68,7 @@ content-type: application/json
 
 ### POST admin incorrect - Blank login/surname/name/password/email
 POST http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
@@ -78,6 +83,7 @@ content-type: application/json
 
 ### POST admin incorrect - Wrong format email
 POST http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
@@ -92,6 +98,7 @@ content-type: application/json
 
 ### POST admin incorrect - Negative salary
 POST http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
@@ -106,15 +113,19 @@ content-type: application/json
 
 ### GET admin all
 GET http://localhost:8080/admin
+Authorization: Basic admin admin
 
 ### GET admin by id correct
 GET http://localhost:8080/admin/1
+Authorization: Basic admin admin
 
 ### GET admin by id incorrect
 GET http://localhost:8080/admin/999999
+Authorization: Basic admin admin
 
 ### POST admin to test put/delete
 POST http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
@@ -129,10 +140,11 @@ content-type: application/json
 
 ### PUT admin correct
 PUT http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
-  "id": 4,
+  "id": 5,
   "login": "updated",
   "surname": "updated",
   "name": "updated",
@@ -144,10 +156,11 @@ content-type: application/json
 
 ### PUT admin incorrect - unique email
 PUT http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
-  "id": 4,
+  "id": 5,
   "login": "updated",
   "surname": "updated",
   "name": "updated",
@@ -159,10 +172,11 @@ content-type: application/json
 
 ### PUT admin incorrect - Blank login/surname/name/password/email, negative salary
 PUT http://localhost:8080/admin
+Authorization: Basic admin admin
 content-type: application/json
 
 {
-  "id": 4,
+  "id": 5,
   "login": "   ",
   "surname": "   ",
   "name": "   ",
@@ -174,6 +188,8 @@ content-type: application/json
 
 ### DELETE admin incorrect
 DELETE http://localhost:8080/admin/9999
+Authorization: Basic admin admin
 
 ### DELETE admin correct
-DELETE http://localhost:8080/admin/4
+DELETE http://localhost:8080/admin/5
+Authorization: Basic admin admin

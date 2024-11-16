@@ -82,8 +82,8 @@ public class TrainingServiceImpl implements TrainingService {
 
     @Override
     public Training delete(long id) {
-        Training training = this.get(id);
         try {
+            Training training = this.get(id);
             this.trainingRepository.delete(training);
             return training;
         } catch (DataIntegrityViolationException e) {

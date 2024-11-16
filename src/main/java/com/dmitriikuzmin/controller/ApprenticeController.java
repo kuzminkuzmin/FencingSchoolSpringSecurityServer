@@ -58,24 +58,23 @@ public class ApprenticeController {
 
     @PutMapping
     public ResponseEntity<ResponseResult<Apprentice>> update(@Valid @RequestBody Apprentice apprentice, Authentication authentication) {
-        if (authentication != null && authentication.isAuthenticated()) {
-            User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
-            if (user.getClass() == Apprentice.class && apprentice.getId() != user.getId()) {
-                return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.BAD_REQUEST);
-            } else {
-                try {
-                    return new ResponseEntity<>(new ResponseResult<>(null, this.apprenticeService.update(apprentice)), HttpStatus.OK);
-                } catch (IllegalArgumentException e) {
-                    return new ResponseEntity<>(new ResponseResult<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
-                }
-            }
-        } else {
-            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.BAD_REQUEST);
+        User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
+        if (user.getClass() == Apprentice.class && apprentice.getId() != user.getId()) {
+            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.FORBIDDEN);
+        }
+        try {
+            return new ResponseEntity<>(new ResponseResult<>(null, this.apprenticeService.update(apprentice)), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(new ResponseResult<>(e.getMessage(), null), HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseResult<Apprentice>> delete(@PathVariable long id) {
+    public ResponseEntity<ResponseResult<Apprentice>> delete(@PathVariable long id, Authentication authentication) {
+        User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
+        if (user.getClass() == Apprentice.class && id != user.getId()) {
+            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.FORBIDDEN);
+        }
         try {
             return new ResponseEntity<>(new ResponseResult<>(null, this.apprenticeService.delete(id)), HttpStatus.OK);
         } catch (IllegalArgumentException e) {

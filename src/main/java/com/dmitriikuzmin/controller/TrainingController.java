@@ -54,7 +54,12 @@ public class TrainingController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseResult<Training>> get(@PathVariable long id) {
+    public ResponseEntity<ResponseResult<Training>> get(@PathVariable long id, Authentication authentication) {
+        User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
+        Training training = this.trainingService.get(id);
+        if (user.getClass() == Apprentice.class && training.getApprentice().getId() != user.getId()) {
+            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.FORBIDDEN);
+        }
         try {
             return new ResponseEntity<>(new ResponseResult<>(null, this.trainingService.get(id)), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
@@ -63,7 +68,11 @@ public class TrainingController {
     }
 
     @GetMapping("/apprentice")
-    public ResponseEntity<ResponseResult<List<Training>>> getByApprentice(@RequestParam long apprenticeId) {
+    public ResponseEntity<ResponseResult<List<Training>>> getByApprentice(@RequestParam long apprenticeId, Authentication authentication) {
+        User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
+        if (user.getClass() == Apprentice.class && apprenticeId != user.getId()) {
+            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(new ResponseResult<>(null, this.trainingService.getByApprentice(apprenticeId)), HttpStatus.OK);
     }
 
@@ -74,14 +83,20 @@ public class TrainingController {
 
     @GetMapping("/availableTime")
     public ResponseEntity<ResponseResult<List<LocalTime>>> getAvailableTime(@RequestParam long trainerId,
-                                                                           @RequestParam int numberGym,
-                                                                           @RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy")LocalDate date) {
+                                                                            @RequestParam int numberGym,
+                                                                            @RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate date) {
         List<LocalTime> timeList = this.trainingService.getAvailableTime(trainerId, numberGym, date);
         return new ResponseEntity<>(new ResponseResult<>(null, timeList), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseResult<Training>> delete(@PathVariable long id) {
+    public ResponseEntity<ResponseResult<Training>> delete(@PathVariable long id, Authentication authentication) {
+        User user = this.userService.get(((UserDetailsImpl) authentication.getPrincipal()).getId());
+        Training training = this.trainingService.get(id);
+        if (user.getClass() == Apprentice.class && training.getApprentice().getId() != user.getId()
+                || user.getClass() == Trainer.class && training.getTrainer().getId() != user.getId()) {
+            return new ResponseEntity<>(new ResponseResult<>("Ошибка доступа", null), HttpStatus.FORBIDDEN);
+        }
         try {
             return new ResponseEntity<>(new ResponseResult<>(null, this.trainingService.delete(id)), HttpStatus.OK);
         } catch (IllegalArgumentException e) {

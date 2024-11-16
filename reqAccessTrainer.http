@@ -1,0 +1,213 @@
+### POST
+POST http://localhost:8080/trainer
+Authorization: Basic admin admin
+content-type: application/json
+
+{
+  "login": "ggg",
+  "surname": "ggg",
+  "name": "ggg",
+  "patronymic": "ggg",
+  "password": "ggg",
+  "email": "ggg@ggg.gg",
+  "experience": 5
+}
+
+
+
+### NO AUTH - POST - 401
+POST http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "login": "asd",
+  "surname": "asd",
+  "name": "asd",
+  "patronymic": "asd",
+  "password": "asd",
+  "email": "asd@asd.as",
+  "experience": 5
+}
+
+### NO AUTH - GET ALL - 401
+GET http://localhost:8080/trainer
+
+### NO AUTH - GET - 401
+GET http://localhost:8080/trainer/3
+
+### NO AUTH - PUT - 401
+PUT http://localhost:8080/trainer
+content-type: application/json
+
+{
+  "id": 11,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "email": "updated@updated.tr",
+  "experience": 5
+}
+
+### NO AUTH - DELETE - 401
+DELETE http://localhost:8080/trainer/11
+
+
+
+### ADMIN - POST - correct
+POST http://localhost:8080/trainer
+Authorization: Basic admin admin
+content-type: application/json
+
+{
+  "login": "bbb",
+  "surname": "bbb",
+  "name": "bbb",
+  "patronymic": "bbb",
+  "password": "bbb",
+  "email": "bbb@bbb.bb",
+  "experience": 5
+}
+
+### ADMIN - GET ALL - correct
+GET http://localhost:8080/trainer
+Authorization: Basic admin admin
+
+### ADMIN - GET - correct
+GET http://localhost:8080/trainer/3
+Authorization: Basic admin admin
+
+### ADMIN - PUT - correct
+PUT http://localhost:8080/trainer
+Authorization: Basic admin admin
+content-type: application/json
+
+{
+  "id": 12,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "email": "updated@updated.tr",
+  "experience": 5
+}
+
+### ADMIN - DELETE - correct
+DELETE http://localhost:8080/trainer/12
+Authorization: Basic admin admin
+
+
+
+### APPRENTICE - POST - 403
+POST http://localhost:8080/trainer
+Authorization: Basic apprentice apprentice
+content-type: application/json
+
+{
+  "login": "bbb",
+  "surname": "bbb",
+  "name": "bbb",
+  "patronymic": "bbb",
+  "password": "bbb",
+  "email": "bbb@bbb.bb",
+  "experience": 5
+}
+
+### APPRENTICE - GET ALL - correct
+GET http://localhost:8080/trainer
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE - GET - 403
+GET http://localhost:8080/trainer/3
+Authorization: Basic apprentice apprentice
+
+### APPRENTICE - PUT - 403
+PUT http://localhost:8080/trainer
+Authorization: Basic apprentice apprentice
+content-type: application/json
+
+{
+  "id": 11,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "email": "updated@updated.tr",
+  "experience": 5
+}
+
+### APPRENTICE - DELETE - 403
+DELETE http://localhost:8080/trainer/11
+Authorization: Basic apprentice apprentice
+
+
+
+### TRAINER - POST - 403
+POST http://localhost:8080/trainer
+Authorization: Basic trainer trainer
+content-type: application/json
+
+{
+  "login": "bbb",
+  "surname": "bbb",
+  "name": "bbb",
+  "patronymic": "bbb",
+  "password": "bbb",
+  "email": "bbb@bbb.bb",
+  "experience": 5
+}
+
+### TRAINER - GET ALL - 403
+GET http://localhost:8080/trainer
+Authorization: Basic trainer trainer
+
+### TRAINER HIMSELF - GET - correct
+GET http://localhost:8080/trainer/3
+Authorization: Basic trainer trainer
+
+### TRAINER OTHER - GET - 403
+GET http://localhost:8080/trainer/11
+Authorization: Basic trainer trainer
+
+### TRAINER HIMSELF - PUT - correct
+PUT http://localhost:8080/trainer
+Authorization: Basic ggg ggg
+content-type: application/json
+
+{
+  "id": 11,
+  "login": "updated12",
+  "surname": "updated12",
+  "name": "updated12",
+  "patronymic": "updated12",
+  "password": "updated",
+  "email": "updated@updated.tr",
+  "experience": 5
+}
+
+### TRAINER OTHER - PUT - 403
+PUT http://localhost:8080/trainer
+Authorization: Basic trainer trainer
+content-type: application/json
+
+{
+  "id": 11,
+  "login": "updated",
+  "surname": "updated",
+  "name": "updated",
+  "patronymic": "updated",
+  "password": "updated",
+  "email": "updated@updated.tr",
+  "experience": 5
+}
+
+### TRAINER OTHER - DELETE - 403
+DELETE http://localhost:8080/trainer/11
+Authorization: Basic trainer trainer
+
+### TRAINER HIMSELF - DELETE - correct
+DELETE http://localhost:8080/trainer/11
+Authorization: Basic ggg ggg
